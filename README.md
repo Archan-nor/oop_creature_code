@@ -5,7 +5,7 @@ This project is designed to help me learn **object-oriented programming** in Pyt
 I will begin with a base class (`Creature`) and create additional subclasses on separate Git branches to simulate a real development workflow.
 
 ---
-
+#
 ## Learning Objectives
 
 ### Python / OOP
