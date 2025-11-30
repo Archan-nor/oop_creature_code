@@ -11,6 +11,8 @@ class Creature:
 
         print(f"{self.name} attacks {target.name} for {self.attack_power} damage!")
         target.hp -= self.attack_power
+        if target.hp < 0:
+            target.hp =0
 
     def is_alive(self):
         return self.hp > 0
@@ -63,6 +65,34 @@ class SwimmingCreature(Creature):
 
         print(f"{self.name} attacks from underwater at depth {self.depth}!")
         print(f"It splashes {target.name} for {self.attack_power} damage!")
+        target.hp -= self.attack_power
+        if target.hp < 0:
+            target.hp = 0
+        print(f"{target.name} HP is now {target.hp}")
+
+# ===============================
+# FireCreature Branch
+# ===============================
+
+class FireCreature(Creature):
+    def __init__(self, name, hp, attack_power):
+        super().__init__(name, hp, attack_power)
+        self.firelevel = 0
+
+    def fire_level(self, new_firelevel):
+        if 0<new_firelevel<100:
+            self.firelevel = new_firelevel
+            print(f"{self.name} new fire level is {self.firelevel}")
+        else:
+            print("Error: Firelevel should be 0-100")
+
+    def attack(self, target):
+        if not self.is_alive():
+            print(f"{self.name} cannot attack because it is defeated.")
+            return
+
+        print(f"{self.name} attacks from underground with firelevel: {self.firelevel}!")
+        print(f"It burn {target.name} for {self.attack_power} damage!")
         target.hp -= self.attack_power
         if target.hp < 0:
             target.hp = 0
@@ -140,5 +170,20 @@ if __name__ == "__main__":
     dummy = Creature("Practice Dummy", 40, 0)
     serpent.attack(dummy)
     print(f"Dummy HP should be 33 → Actual: {dummy.hp}")
+    print()
+    print("=== Tests Completed ===")
+
+    print("=== FireCreature Tests ===\n")
+    dragon = FireCreature("Fire dragon", 90, 40)
+    dragon.fire_level(50)
+    print(f"firelevel should be 50 → Actual: {dragon.firelevel}")
+
+    dummy = Creature("Practice Dummy", 50, 0)
+    dragon.attack(dummy)
+    print(f"Dummy HP should be 10 → Actual: {dummy.hp}")
+    print()
+    print("Check if level is not 0-100")
+    dragon.fire_level(110)
+    dragon.fire_level(-10)
     print()
     print("=== Tests Completed ===")
